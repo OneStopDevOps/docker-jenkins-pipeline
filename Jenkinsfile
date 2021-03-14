@@ -24,8 +24,6 @@ pipeline {
     stage('Clone docker-jenkins-pipeline') {
 
       steps {
-        /*git([url: 'https://github.com/OneStopDevOps/docker-jenkins-pipeline.git', branch: 'master', 
-           credentialsId: 'onestopdevops-github-user-token'])*/
         checkout scm
       }
     }
