@@ -25,10 +25,9 @@ pipeline {
          echo "Building inventory-service..."
 
          dir('inventory-service') {
-           sh 'pwd'
+          sh 'pwd'
+          sh 'mvn clean package'
          }
-
-         sh 'mvn clean package'
       }
     }
   }
