@@ -30,8 +30,6 @@ pipeline {
       }
     }
 
-    stage('')
-
     stage('Build jar') {
 
       steps {
