@@ -9,17 +9,18 @@ pipeline {
 
   agent any
 
-  environment {
-
-    // Reserved for docker environment variable
-  }
-
   stages {
 
     stage('Cloning docker-jenkins-pipeline') {
 
-      git([url: 'https://github.com/OneStopDevOps/docker-jenkins-pipeline.git', branch: 'master', 
+      when {
+        branch 'origin/master'
+      }
+
+      steps {
+        git([url: 'https://github.com/OneStopDevOps/docker-jenkins-pipeline.git', branch: 'master', 
            credentialsId: 'onestopdevops-github-user-token'])
+      }
     }
 
     stage('Building jar') {
@@ -34,16 +35,16 @@ pipeline {
          sh 'mvnw clean package'
       }
     }
-  
-    post {
+  }
 
-      success {
-        echo "Build completed."
-      }
+  post {
 
-      failure {
-        echo "Build failed."
-      }
+    success {
+      echo "Build completed."
+    }
+
+    failure {
+      echo "Build failed."
     }
   }
 
