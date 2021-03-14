@@ -15,8 +15,6 @@ pipeline {
 
     COMPOSE_FILE = 'docker-compose.yml'
 
-    //Docker credentials
-    DOCKER_REGISTRY_CREDENTIALS = credentials('')
   }
 
   stages {
