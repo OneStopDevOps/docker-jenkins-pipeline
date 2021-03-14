@@ -14,7 +14,7 @@ pipeline {
     stage('Cloning docker-jenkins-pipeline') {
 
       when {
-        branch '*/master'
+        branch 'master'
       }
 
       steps {
@@ -26,7 +26,7 @@ pipeline {
     stage('Building jar') {
 
       when {
-        branch '*/master'
+        branch 'master'
       }
 
       steps {
