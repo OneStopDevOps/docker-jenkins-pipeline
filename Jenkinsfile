@@ -12,7 +12,7 @@ pipeline {
   stages {
 
     stage('Cloning docker-jenkins-pipeline') {
-      
+
       steps {
         git([url: 'https://github.com/OneStopDevOps/docker-jenkins-pipeline.git', branch: 'master', 
            credentialsId: 'onestopdevops-github-user-token'])
@@ -24,7 +24,7 @@ pipeline {
       steps {
          echo "Building inventory-service..."
 
-         sh 'mvnw clean package'
+         sh 'mvn clean package'
       }
     }
   }
