@@ -12,11 +12,7 @@ pipeline {
   stages {
 
     stage('Cloning docker-jenkins-pipeline') {
-
-      when {
-        branch 'master'
-      }
-
+      
       steps {
         git([url: 'https://github.com/OneStopDevOps/docker-jenkins-pipeline.git', branch: 'master', 
            credentialsId: 'onestopdevops-github-user-token'])
@@ -24,10 +20,6 @@ pipeline {
     }
 
     stage('Building jar') {
-
-      when {
-        branch 'master'
-      }
 
       steps {
          echo "Building inventory-service..."
