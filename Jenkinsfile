@@ -16,6 +16,12 @@ pipeline {
 
   stages {
 
+    stage('Cloning docker-jenkins-pipeline') {
+
+      git([url: 'https://github.com/OneStopDevOps/docker-jenkins-pipeline.git', branch: 'master', 
+           credentialsId: 'onestopdevops-github-user-token'])
+    }
+
     stage('Building jar') {
 
       when {
