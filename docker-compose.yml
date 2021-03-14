@@ -6,7 +6,7 @@ services:
   # Inventory-service returns a simple REST call to get inventory 
   ###############################################################
   inventory-service:
-    image: onestopdevops/inventory-service:1.0
+    image: onestopdevops/project1-docker-jenkins-pipeline:latest
     container_name: inventory-service
     build: ./inventory-service
     restart: always

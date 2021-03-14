@@ -9,17 +9,30 @@ pipeline {
 
   agent any
 
+  environment {
+
+    IMAGE_NAME = 'onestopdevops/project1-docker-jenkins-pipeline'
+
+    COMPOSE_FILE = 'docker-compose.yml'
+
+    //Docker credentials
+    DOCKER_REGISTRY_CREDENTIALS = credentials('')
+  }
+
   stages {
 
-    stage('Cloning docker-jenkins-pipeline') {
+    stage('Clone docker-jenkins-pipeline') {
 
       steps {
-        git([url: 'https://github.com/OneStopDevOps/docker-jenkins-pipeline.git', branch: 'master', 
-           credentialsId: 'onestopdevops-github-user-token'])
+        /*git([url: 'https://github.com/OneStopDevOps/docker-jenkins-pipeline.git', branch: 'master', 
+           credentialsId: 'onestopdevops-github-user-token'])*/
+        checkout scm
       }
     }
 
-    stage('Building jar') {
+    stage('')
+
+    stage('Build jar') {
 
       steps {
          echo "Building inventory-service..."
@@ -30,6 +43,17 @@ pipeline {
          }
       }
     }
+
+    stage('Build and run docker image') {
+      
+      steps {
+
+        echo "Building inventory-service image."
+        sh 'docker-compose build --build-arg BUILD_VERSION=\"${env.BUILD_TAG}\"'
+        sh 'docker-compose up -d'
+      }
+    }
+
   }
 
   post {

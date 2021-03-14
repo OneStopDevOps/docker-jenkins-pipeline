@@ -1,5 +1,5 @@
-# Use a slim version of openjdk 11 to reduce memory footprint and fast startup
-FROM openjdk:11-jre-slim
+# Use a slim version of openjdk 8 to reduce memory footprint and fast startup
+FROM openjdk:8-jre-slim
 
 LABEL maintainer="jane.doe@yahoo.com"
 
