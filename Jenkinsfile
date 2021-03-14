@@ -24,7 +24,9 @@ pipeline {
       steps {
          echo "Building inventory-service..."
 
-         sh 'cd inventory-service'
+         dir('inventory-service') {
+           sh 'pwd'
+         }
 
          sh 'mvn clean package'
       }
