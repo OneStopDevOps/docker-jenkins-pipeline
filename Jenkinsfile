@@ -43,7 +43,7 @@ pipeline {
       steps {
 
         echo "Building inventory-service image."
-        sh 'docker-compose build --build-arg BUILD_VERSION=\"${env.BUILD_TAG}\"'
+        sh 'export BUILD_VERSION=${env.BUILD_TAG}&& docker-compose build'
         sh 'docker-compose up -d'
       }
     }
