@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * Created by Jason Tao on 3/7/2021
  */
 @RestController
-@RequestMapping(("/api/v1"))
+@RequestMapping("/api/v1")
 public class InventoryResource {
 
     public InventoryResource() {}
