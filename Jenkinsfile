@@ -42,7 +42,14 @@ pipeline {
     }
 
     stage('Stage 3 - Build and run docker image') {
-      
+
+      // only execute this stage if the previous stages are successful.
+      when {
+        expression {
+          currentBuild.result == null || currentBuild.result == 'SUCCESS'
+        }
+      }
+
       steps {
 
         echo "Building inventory-service image..."
@@ -53,6 +60,13 @@ pipeline {
 
     stage('Stage 4 - Pushing docker image to DockerHub') {
       
+      // only execute this stage if the previous stages are successful.
+      when {
+        expression {
+          currentBuild.result == null || currentBuild.result == 'SUCCESS'
+        }
+      }
+
       steps {
 
         script {
@@ -100,6 +114,7 @@ def sendStartNotification() {
     subject: "STARTED Job: '${env.JOB_NAME} [${env.JOB_NUMBER}]'",
     body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
       <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+    to: '$DEFAULT_RECIPIENTS',
     recipientProviders: [[$class: 'DevelopersRecipientProvider']] 
   )
 }
@@ -113,6 +128,7 @@ def sendFailNotification() {
     subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
     body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
       <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+    to: '$DEFAULT_RECIPIENTS',
     recipientProviders: [[$class: 'DevelopersRecipientProvider']]
   )
 }
@@ -126,6 +142,7 @@ def sendSuccessNotification() {
     subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
     body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
       <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+    to: '$DEFAULT_RECIPIENTS',
     recipientProviders: [[$class: 'DevelopersRecipientProvider']]
   )
 } 
